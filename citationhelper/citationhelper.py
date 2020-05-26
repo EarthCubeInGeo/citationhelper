@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 
 def citehelp(workdirs):
 
@@ -29,12 +30,32 @@ def citehelp(workdirs):
             except ValueError:
                 continue
 
-    packages = list(set(all_packages))
+    packages = sorted(list(set(all_packages)))
+
+    try:
+        full_citations = read_pkg_citations(os.environ["CITEHELP_REFFILE"])
+    except KeyError:
+        full_citations = {}
 
     # print report
-    print('Summary Report of All Packages Imported:')
+    print('The following packages were imported in *.py scrips.  Where know, the recommended citation is given.')
     for p in packages:
         print(p)
+        try:
+            print(full_citations[p])
+        except KeyError:
+            continue
+
+    print('\nDisclaimer: The citehelp utility is intended only to make it easier to keep track of what packages are being used for citation purposes.  The list provided may not be comprehensive, so users are STRONGLY encourage to review it and make sure all software used is given proper credit.\n')
+
+def read_pkg_citations(filename):
+
+    with open(filename, 'ro') as f:
+        citations = json.load(f)
+
+    return citations
+
+
 
 def main():
     # try to get directories to search from command line

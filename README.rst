@@ -3,6 +3,14 @@ citationhelper
 
 This is a utility that generates a list of all packages imported into python scripts (*.py) in a given list of directories.  It is inteneded to be used to help keep track of community software used in research projects so that the packages can be properly cited in publications.
 
+**Installation**::
+citationhelper can be installed with pip from github.
+	pip install .
+
+After installing, set the environment variable CITEHELP_REFFILE if you want to use a custom JSON library of full citations.  The utility will work without this, but it can only generate a list of package names with no citation information.::
+	export CITEHELP_REFFILE=filename
+
+
 **Usage**::
 	citehelp project_directory
 
