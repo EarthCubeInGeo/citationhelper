@@ -1,10 +1,13 @@
 import os
+import sys
 
 def citehelp(workdirs):
 
     # create list of all python code files in workdirs
     pyfiles = []
     for wdir in workdirs:
+        if not os.path.isdir(wdir):
+            raise OSError('Cannot find {}'.format(wdir))
         for root, dirs, files in os.walk(wdir):
             pyfiles.extend([os.path.join(root,fn) for fn in files if fn.endswith('.py')])
 
@@ -33,6 +36,15 @@ def citehelp(workdirs):
     for p in packages:
         print(p)
 
-if __name__=='__main__':
-    workdirs = ['/Users/e30737/Desktop/Research/CERTO_SIGMA']
+def main():
+    # try to get directories to search from command line
+    cmd_args = sys.argv
+    if len(cmd_args)>1:
+        workdirs = cmd_args[1:]
+    else:
+        workdirs = ['/home/jovyan/work','/home/jovyan/mount']
+
     citehelp(workdirs)
+
+if __name__=='__main__':
+    main()
