@@ -1,7 +1,7 @@
 citationhelper
 ==============
 
-This is a utility that generates a list of all packages imported into python scripts (*.py) in a given list of directories.  It is inteneded to be used to help keep track of community software used in research projects so that the packages can be properly cited in publications.  The utility works by first walking the named directories and identifying *.py files, then searching these files for import statements.
+This is a utility that generates a list of all packages imported into python scripts (*.py) in a given list of directories.  It is intended to be used to help keep track of community software used in research projects so that the packages can be properly cited in publications.  The utility works by first walking the named directories and identifying *.py files, then searching these files for import statements.
 
 Installation
 ************
