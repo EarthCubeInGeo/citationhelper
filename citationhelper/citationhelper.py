@@ -38,7 +38,7 @@ def citehelp(workdirs):
         full_citations = {}
 
     # print report
-    print('The following packages were imported in *.py scrips.  Where know, the recommended citation is given.')
+    print('The following packages were imported in *.py scripts.  Where known, the recommended citation is given.')
     for p in packages:
         print(p)
         try:
