@@ -16,7 +16,7 @@ def citehelp(workdirs):
     all_packages = []
 
     for pyf in pyfiles:
-        with open(pyf,'ro') as f:
+        with open(pyf,'r') as f:
             lines = f.readlines()
 
         for line in lines:
