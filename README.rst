@@ -8,7 +8,7 @@ Installation
 
 citationhelper can be installed with pip from github
 
-    pip install .
+    pip install git+https://github.com/EarthCubeInGeo/citationhelper.git
 
 After installing, set the environment variable CITEHELP_REFFILE if you want to use a custom JSON library of full citations.  The utility will work without this, but it can only generate a list of package names with no citation information.
 
@@ -22,4 +22,3 @@ Run citationhelper with the `citehelp` command followed by a list of the directo
 
 
 **WARNING**: This tool was developed to assist researchers in keeping track of sofware packages, but it is HIGHLY recommended users review the list of packages produced.
- 
