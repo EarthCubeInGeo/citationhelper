@@ -8,7 +8,8 @@ def citehelp(workdirs):
     pyfiles = []
     for wdir in workdirs:
         if not os.path.isdir(wdir):
-            raise OSError('Cannot find {}'.format(wdir))
+            print('Cannot find path : {}'.format(wdir))
+            continue
         for root, dirs, files in os.walk(wdir):
             pyfiles.extend([os.path.join(root,fn) for fn in files if fn.endswith('.py')])
 
