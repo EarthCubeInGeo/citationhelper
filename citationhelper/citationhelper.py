@@ -8,7 +8,8 @@ def citehelp(workdirs):
     pyfiles = []
     for wdir in workdirs:
         if not os.path.isdir(wdir):
-            raise OSError('Cannot find {}'.format(wdir))
+            print('Cannot find path : {}'.format(wdir))
+            continue
         for root, dirs, files in os.walk(wdir):
             pyfiles.extend([os.path.join(root,fn) for fn in files if fn.endswith('.py')])
 
@@ -38,15 +39,18 @@ def citehelp(workdirs):
         full_citations = {}
 
     # print report
-    print('The following packages were imported in *.py scripts.  Where known, the recommended citation is given.')
-    for p in packages:
-        print(p)
-        try:
-            print(full_citations[p])
-        except KeyError:
-            continue
+    if len(packages) == 0:
+        print('No imported packages were found!')
+    else:
+        print('The following packages were imported in *.py scripts.  Where known, the recommended citation is given.')
+        for p in packages:
+            print(p)
+            try:
+                print(full_citations[p])
+            except KeyError:
+                continue
 
-    print('\nDisclaimer: The citehelp utility is intended only to make it easier to keep track of what packages are being used for citation purposes.  The list provided may not be comprehensive, so users are STRONGLY encourage to review it and make sure all software used is given proper credit.\n')
+        print('\nDisclaimer: The citehelp utility is intended only to make it easier to keep track of what packages are being used for citation purposes.  The list provided may not be comprehensive, so users are STRONGLY encourage to review it and make sure all software used is given proper credit.\n')
 
 def read_pkg_citations(filename):
 
