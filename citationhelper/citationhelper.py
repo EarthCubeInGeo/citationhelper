@@ -54,7 +54,7 @@ def citehelp(workdirs):
 
 def read_pkg_citations(filename):
 
-    with open(filename, 'ro') as f:
+    with open(filename, 'r') as f:
         citations = json.load(f)
 
     return citations
