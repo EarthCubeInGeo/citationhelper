@@ -2,6 +2,8 @@ import os
 import sys
 import json
 
+SEARCH_FTYPES = ['.py','.ipynb'] # in lower case
+
 def citehelp(workdirs):
 
     # create list of all python code files in workdirs
@@ -11,14 +13,23 @@ def citehelp(workdirs):
             print('Cannot find path : {}'.format(wdir))
             continue
         for root, dirs, files in os.walk(wdir):
-            pyfiles.extend([os.path.join(root,fn) for fn in files if fn.endswith('.py')])
+            pyfiles.extend([os.path.join(root,fn) for fn in files if
+                os.path.splitext(fn)[-1].lower() in SEARCH_FTYPES])
 
 
     all_packages = []
 
     for pyf in pyfiles:
-        with open(pyf,'r') as f:
-            lines = f.readlines()
+        if os.path.splitext(pyf)[-1].lower() == '.py':
+            with open(pyf,'r') as f:
+                lines = f.readlines()
+        elif os.path.splitext(pyf)[-1].lower() == '.ipynb':
+            with open(pyf,'r') as f:
+                notebook = json.load(f)
+            lines = list()
+            for cell in notebook['cells']:
+                if cell['cell_type']=='code':
+                    lines.extend(cell['source'])
 
         for line in lines:
             sline = line.split()
@@ -42,7 +53,7 @@ def citehelp(workdirs):
     if len(packages) == 0:
         print('No imported packages were found!')
     else:
-        print('The following packages were imported in *.py scripts.  Where known, the recommended citation is given.')
+        print('The following packages were imported in *.py and *.ipynb scripts.  Where known, the recommended citation is given.')
         for p in packages:
             print(p)
             try:
