@@ -12,10 +12,10 @@ def citehelp(workdirs):
         if not os.path.isdir(wdir):
             print('Cannot find path : {}'.format(wdir))
             continue
-        for root, dirs, files in os.walk(wdir):
+        for root, dirs, files in os.walk(wdir, followlinks=True):
             pyfiles.extend([os.path.join(root,fn) for fn in files if
-                os.path.splitext(fn)[-1].lower() in SEARCH_FTYPES])
-
+                (os.path.splitext(fn)[-1].lower() in SEARCH_FTYPES) and
+                (not os.path.islink(os.path.join(root,fn)))])
 
     all_packages = []
 
