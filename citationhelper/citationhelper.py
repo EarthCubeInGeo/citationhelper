@@ -73,14 +73,16 @@ def read_pkg_citations(filename):
 
 
 def main():
-    # try to get directories to search from command line
-    cmd_args = sys.argv
-    if len(cmd_args)>1:
-        workdirs = cmd_args[1:]
-    else:
-        workdirs = ['/home/jovyan/work','/home/jovyan/mount']
+    from argparse import ArgumentParser, RawTextHelpFormatter
 
-    citehelp(workdirs)
+    des = 'Determine which python packages were imported in all scripts and jupyter notebooks in a particular directory to assist with citing these packages correctly.'
+    # Build the grument parser tree
+    parser = ArgumentParser(description=des, formatter_class=RawTextHelpFormatter)
+    parser.add_argument('dirs', nargs='+', help='directories to search for python programs')
+
+    args = parser.parse_args()
+
+    citehelp(args.dirs)
 
 if __name__=='__main__':
     main()
