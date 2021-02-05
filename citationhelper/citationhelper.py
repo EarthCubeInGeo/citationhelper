@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import re
 
 SEARCH_FTYPES = ['.py','.ipynb'] # in lower case
 
@@ -33,14 +34,20 @@ def citehelp(workdirs):
 
         for line in lines:
             sline = line.split()
-            try:
-                idx = sline.index('import')
-                # idx=0: import package; idx=2: from package import subpackage
-                if idx==0 or idx==2:
-                    package = sline[1]
-                    all_packages.append(package.split('.')[0])
-            except ValueError:
+
+            m1 = re.search('^import (.+) as (.+)', line)
+            m2 = re.search('^from (.+) import (.+)', line)
+            m3 = re.search('^import (.+)', line)
+            if m1:
+                pack = m1.group(1).split(',')
+            elif m2:
+                pack = m2.group(1).split(',')
+            elif m3:
+                pack = m3.group(1).split(',')
+            else:
                 continue
+
+            all_packages.extend([p.strip().split('.')[0] for p in pack])
 
     packages = sorted(list(set(all_packages)))
 
