@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import re
+import importlib
 
 SEARCH_FTYPES = ['.py','.ipynb'] # in lower case
 
@@ -18,7 +19,7 @@ def citehelp(workdirs):
                 os.path.splitext(fn)[-1].lower() in SEARCH_FTYPES])
 
 
-    all_packages = []
+    all_imports = []
 
     for pyf in pyfiles:
         if os.path.splitext(pyf)[-1].lower() == '.py':
@@ -47,9 +48,18 @@ def citehelp(workdirs):
             else:
                 continue
 
-            all_packages.extend([p.strip().split('.')[0] for p in pack])
+            all_imports.extend([p.strip().split('.')[0] for p in pack])
 
-    packages = sorted(list(set(all_packages)))
+    all_imports = sorted(list(set(all_imports)))
+
+
+    installed_packages = []
+    custom_imports = []
+    for p in all_imports:
+        if importlib.find_loader(p):
+            installed_packages.append(p)
+        else:
+            custom_imports.append(p)
 
     try:
         full_citations = read_pkg_citations(os.environ["CITEHELP_REFFILE"])
@@ -57,11 +67,19 @@ def citehelp(workdirs):
         full_citations = {}
 
     # print report
-    if len(packages) == 0:
+    if len(all_imports) == 0:
         print('No imported packages were found!')
     else:
         print('The following packages were imported in *.py and *.ipynb scripts.  Where known, the recommended citation is given.')
-        for p in packages:
+        print('\nInstalled Packages:')
+        for p in installed_packages:
+            print(p)
+            try:
+                print(full_citations[p])
+            except KeyError:
+                continue
+        print('\nOther Imports:')
+        for p in custom_imports:
             print(p)
             try:
                 print(full_citations[p])
