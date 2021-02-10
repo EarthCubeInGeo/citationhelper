@@ -70,17 +70,25 @@ def citehelp(workdirs):
     if len(all_imports) == 0:
         print('No imported packages were found!')
     else:
-        print('The following packages were imported in *.py and *.ipynb scripts.  Where known, the recommended citation is given.')
-        print('\nInstalled Packages:')
-        for p in installed_packages:
-            print(p)
-            try:
-                print(full_citations[p])
-            except KeyError:
-                continue
-        print('\nOther Imports:')
-        for p in custom_imports:
-            print(p)
+        print('The following items were imported in *.py and *.ipynb scripts.  Where known, the recommended citation is given.\n')
+
+        # calculate number of rows in table
+        table_length = max([len(installed_packages),len(custom_imports)])
+        # extend packages list with empty strings so they are equal length
+        installed_packages.extend(['']*(table_length-len(installed_packages)))
+        custom_imports.extend(['']*(table_length-len(custom_imports)))
+        # print heading
+        print('{:25}{:25}'.format('Installed Packages', 'Other Imports'))
+        print('{:25}{:25}'.format('='*len('Installed Packages'), '='*len('Other Imports')))
+        # print packages
+        for i in range(table_length):
+            outline = '{:25}{:25}'.format(installed_packages[i], custom_imports[i])
+            print(outline)
+
+        # print full citations
+        print('\nFull Citations')
+        print('='*len('Full Citations'))
+        for p in all_imports:
             try:
                 print(full_citations[p])
             except KeyError:
