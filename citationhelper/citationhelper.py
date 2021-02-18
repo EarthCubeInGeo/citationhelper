@@ -7,6 +7,11 @@ import importlib
 SEARCH_FTYPES = ['.py','.ipynb'] # in lower case
 
 def citehelp(workdirs):
+    imports = collect_imports(workdirs)
+    installed_packages, custom_imports = identify_imports(imports)
+    print_report(imports, installed_packages, custom_imports)
+
+def collect_imports(workdirs):
 
     # create list of all python code files in workdirs
     pyfiles = []
@@ -50,8 +55,9 @@ def citehelp(workdirs):
 
             all_imports.extend([p.strip().split('.')[0] for p in pack])
 
-    all_imports = sorted(list(set(all_imports)))
+    return sorted(list(set(all_imports)))
 
+def identify_imports(all_imports):
 
     installed_packages = []
     custom_imports = []
@@ -61,6 +67,9 @@ def citehelp(workdirs):
         else:
             custom_imports.append(p)
 
+    return installed_packages, custom_imports
+
+def print_report(all_imports, installed_packages, custom_imports):
     try:
         full_citations = read_pkg_citations(os.environ["CITEHELP_REFFILE"])
     except KeyError:
