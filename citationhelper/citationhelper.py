@@ -103,7 +103,7 @@ def print_report(all_imports, installed_packages, custom_imports):
             except KeyError:
                 continue
 
-        print('\nDisclaimer: The citehelp utility is intended only to make it easier to keep track of what packages are being used for citation purposes.  The list provided may not be comprehensive, so users are STRONGLY encourage to review it and make sure all software used is given proper credit.\n')
+        print('\nDisclaimer: The citehelp utility is intended only to make it easier to keep track of what packages are being used for citation purposes.  The list provided may not be comprehensive, so users are STRONGLY encouraged to review it and make sure all software used is given proper credit.\n')
 
 def read_pkg_citations(filename):
 
