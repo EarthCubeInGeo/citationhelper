@@ -55,7 +55,7 @@ repo root directory."
 setup(name='citationhelper',
       install_requires=REQUIREMENTS,
       setup_requires=REQUIREMENTS,
-      version="0.2",
+      version="0.3",
       description=DESC,
       author="InGeO",
       author_email="ingeo-team@ingeo.datatransport.org",
