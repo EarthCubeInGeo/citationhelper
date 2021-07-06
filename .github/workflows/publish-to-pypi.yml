@@ -1,6 +1,10 @@
+# This workflow will build the distribution and publish it to PyPI
+# Based on: https://packaging.python.org/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
+
 name: Publish citationhelper to PyPI
 
-on: push
+on: release
+  types: [published]
 
 
 jobs:
@@ -23,5 +27,4 @@ jobs:
       - name: Publish distribution to Test PyPI
         uses: pypa/gh-action-pypi-publish@master
         with:
-          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-          repository_url: https://test.pypi.org/legacy/
+          password: ${{ secrets.PYPI_API_TOKEN }}
