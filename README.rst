@@ -1,12 +1,16 @@
 citationhelper
 ==============
 
-This is a utility that generates a list of all packages imported into python scripts (*.py) in a given list of directories.  It is intended to be used to help keep track of community software used in research projects so that the packages can be properly cited in publications.  The utility works by first walking the named directories and identifying *.py files, then searching these files for import statements.
+This is a utility that generates a list of all packages imported into python scripts (\*.py) in a given list of directories.  It is intended to be used to help keep track of community software used in research projects so that the packages can be properly cited in publications.  The utility works by first walking the named directories and identifying \*.py files, then searching these files for import statements.
 
 Installation
 ************
 
-citationhelper can be installed with pip from github
+citationhelper can be installed via pip
+
+    pip install citationhelper
+
+Alternatively, citationhelper can be installed from github
 
     pip install git+https://github.com/EarthCubeInGeo/citationhelper.git
 
@@ -21,4 +25,4 @@ Run citationhelper with the `citehelp` command followed by a list of the directo
     citehelp project_directory
 
 
-**WARNING**: This tool was developed to assist researchers in keeping track of sofware packages, but it is HIGHLY recommended users review the list of packages produced.
+**WARNING**: This tool was developed to assist researchers in keeping track of software packages, but it is HIGHLY recommended users review the list of packages produced.
