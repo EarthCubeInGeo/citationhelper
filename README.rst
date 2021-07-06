@@ -6,7 +6,11 @@ This is a utility that generates a list of all packages imported into python scr
 Installation
 ************
 
-citationhelper can be installed with pip from github
+citationhelper can be installed via pip
+
+    pip install citationhelper
+
+Alternatively, citationhelper can be installed from github
 
     pip install git+https://github.com/EarthCubeInGeo/citationhelper.git
 
